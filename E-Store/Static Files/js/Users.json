@@ -1,0 +1,20 @@
+[
+  {
+    "Id": 1,
+    "Name": "Elshad",
+    "Surname": "Hasanov",
+    "UserName": "hasanoff2005",
+    "Password": "Hasanoff17",
+    "ImageUrl": "https://avatars.githubusercontent.com/u/99557252?v=4",
+    "IsAdmin": true
+  },
+  {
+    "Id": 2,
+    "Name": "StepIt",
+    "Surname": "Academy",
+    "UserName": "Step",
+    "Password": "12345",
+    "ImageUrl": "https://img.day.az/2016/09/13/step_it_academy.jpg",
+    "IsAdmin": false
+  }
+]

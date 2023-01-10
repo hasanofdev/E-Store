@@ -1,0 +1,158 @@
+﻿<UserControl x:Class="E_Store.Views.AboutView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:E_Store.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="1000" d:DesignWidth="1000">
+    <UserControl.Resources>
+        <ControlTemplate TargetType="UserControl" x:Key="ControlTemplate" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" Grid.ColumnSpan="8"  Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                    <ContentPresenter  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                </Border>
+
+                <Button Template="{DynamicResource NavBarButtonTemp}" Grid.Column="0" Background="Transparent" Foreground="Wheat" FontWeight="Bold" BorderThickness="0"
+                       HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="17" Cursor="Hand"
+                       Margin="10 10 0 10" Command="{Binding HomeCommand}">Home</Button>
+
+                <Button Template="{DynamicResource NavBarButtonTemp}" Grid.Column="1" Background="Transparent" Foreground="Wheat" FontWeight="Bold" BorderThickness="0"
+                       HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="17" Cursor="Hand"
+                       Margin="0 10 0 10">About</Button>
+
+                <Button Template="{DynamicResource NavBarButtonTemp}" Grid.Column="2" Background="Transparent" Foreground="Wheat" FontWeight="Bold" BorderThickness="0"
+                       HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="17" Cursor="Hand"
+                       Margin="0 10 0 10" Command="{Binding OurFruitCommand}">Our Fruit</Button>
+
+                <Button Template="{DynamicResource NavBarButtonTemp}" Grid.Column="3" Background="Transparent" Foreground="Wheat" FontWeight="Bold" BorderThickness="0"
+                       HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="17" Cursor="Hand"
+                       Margin="0 10 0 10">Testimonial</Button>
+
+                <Button Template="{DynamicResource NavBarButtonTemp}" Grid.Column="4" Background="Transparent" Foreground="Wheat" FontWeight="Bold" BorderThickness="0"
+                       HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="17" Cursor="Hand"
+                       Margin="0 10 0 10">Contact Us</Button>
+
+                <Button Template="{DynamicResource NavBarButtonTemp}" Grid.Column="5" Background="Transparent" Foreground="Wheat" FontWeight="Bold" BorderThickness="0"
+                       HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="17" Cursor="Hand"
+                       Margin="0 10 10 10" Visibility="{Binding LoginBtnVisibility}" Command="{Binding LoginCommand}">Login</Button>
+
+                <Button Template="{DynamicResource NavBarButtonTemp}" Grid.Column="5" 
+                        Background="Transparent" Cursor="Hand" Visibility="{Binding ProfileBtnVisibility}">
+                    <Button.Content>
+                        <StackPanel 
+                            Orientation="Horizontal"
+                            >
+                            <Ellipse 
+                                Grid.Column="0"
+                                Width="40" 
+                                Height="40" 
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                >
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="{Binding CurrentUser.ImageUrl}"></ImageBrush>
+                                </Ellipse.Fill>
+                            </Ellipse>
+
+                            <TextBlock
+                                Text="{Binding CurrentUser.Name}"
+                                FontSize="17"
+                                VerticalAlignment="Center"
+                                FontWeight="Medium"
+                                Foreground="Wheat"
+                                Margin="20 0 20 0"
+                                />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+            </Grid>
+
+        </ControlTemplate>
+    </UserControl.Resources>
+    <ScrollViewer>
+        <Grid Background="White" Height="1000">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Image Source="../Static Files/Images/sliderimg.jpg" Stretch="UniformToFill"></Image>
+
+            <UserControl Template="{DynamicResource ControlTemplate}"  Background="#2e2e2e" Height="70"
+                         VerticalAlignment="Bottom" Grid.Row="0"/>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Image Source="../Static Files/Images/fruit-img.jpg" Margin="10" VerticalAlignment="Top" Stretch="UniformToFill"
+                       Grid.Column="0"/>
+
+                    <StackPanel HorizontalAlignment="Center" Grid.Column="1" Margin="10">
+                        <StackPanel.Effect>
+                            <DropShadowEffect Direction="1" BlurRadius="50" ShadowDepth="5"/>
+                        </StackPanel.Effect>
+                        <StackPanel.Background>
+                            <LinearGradientBrush>
+                                <GradientStop Color="Black" Offset="2"></GradientStop>
+                                <GradientStop Color="White" Offset="0"></GradientStop>
+                            </LinearGradientBrush>
+                        </StackPanel.Background>
+                        <Label HorizontalAlignment="Center"
+                           FontSize="35" Content="About Us"></Label>
+
+                        <TextBlock HorizontalAlignment="Stretch" Margin="10" FontSize="20"
+                               Text=" Lorem Ipsum is simply dummy text of the printing
+                               &#10;and typesetting industry. Lorem Ipsum has been the
+                               &#10;industrys standard dummy text ever since the 1500s,
+                               &#10;when an unknown printer took a galley of type and 
+                               &#10;scrambled it to make a type specimen book. It has
+                               &#10; survived not only five centuries, but also the leap 
+                               &#10;  into electronic typesetting, remaining essentially 
+                               &#10;  unchanged. It was popularised in the 1960s with
+                               &#10;   the release of Letraset sheets containing Lorem 
+                               &#10;  Ipsum passages, and more recently with desktop
+                               &#10;publishing software like Aldus PageMaker including
+                               &#10;                        versions of Lorem Ipsum"/>
+                    </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="6" Background="#2e2e2e">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Label Foreground="White" Grid.Row="0" Content="NINOM" FontSize="40px" FontWeight="Bold"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                <Label Foreground="White" Grid.Row="1" HorizontalAlignment="Left" Content="📌 STEP Kompüter Akademiyası, Baku" FontSize="16"
+                       VerticalAlignment="Center" Cursor="Hand" Margin="15 0"/>
+
+                <Label Foreground="White" Grid.Row="1" HorizontalAlignment="Center" Content="📞 +(994) 050-883-0844" FontSize="16" 
+                       VerticalAlignment="Center" Cursor="Hand"/>
+
+                <Label Foreground="White" Grid.Row="1" HorizontalAlignment="Right" Content="📧 hesenovelsad468@gmail.com" FontSize="16"
+                       VerticalAlignment="Center" Cursor="Hand" Margin="15 0"></Label>
+
+                <TextBlock Foreground="White" Grid.Row="2" HorizontalAlignment="Center" Text="Ⓒ 2023 All Rights Reserved.Design by LinkMedia.az"
+                       VerticalAlignment="Bottom" FontSize="20" Cursor="IBeam"/>
+            </Grid>
+
+        </Grid>
+    </ScrollViewer>
+</UserControl>
