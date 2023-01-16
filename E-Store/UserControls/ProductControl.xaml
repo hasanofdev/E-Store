@@ -21,7 +21,7 @@
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
-    
+
     <Border Width="300" Height="393" CornerRadius="20" Background="White"
             BorderThickness="2" Style="{DynamicResource UserControlStyle}">
         <Border.BorderBrush>
@@ -47,7 +47,10 @@
             <StackPanel Grid.Row="1">
                 <TextBlock Text="{Binding ProductName}" HorizontalAlignment="Center" FontSize="20" TextWrapping="WrapWithOverflow" MaxHeight="60" Margin="0 5 0 0"/>
                 <TextBlock Text="From To Azerbaijan" HorizontalAlignment="Center" FontSize="16" Margin="20"/>
-                <TextBlock Text="{Binding Price}" HorizontalAlignment="Center" FontSize="16"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Text="{Binding Price}" HorizontalAlignment="Center" FontSize="16"/>
+                    <TextBlock Text="$ per kilo" HorizontalAlignment="Center" FontSize="16"/>
+                </StackPanel>
             </StackPanel>
 
             <Button Grid.Row="2" Template="{DynamicResource ButtonTemplate}" Background="Black"

@@ -2,16 +2,9 @@
 using E_Store.Models;
 using E_Store.Repositories;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
-using System.Runtime.ConstrainedExecution;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace E_Store.Service;
 
@@ -38,13 +31,23 @@ public class Database_Service
         }
     }
 
-    public static List<Member> GetMembers()
+    public static ObservableCollection<Member> GetMembers()
     {
-        var Users = new List<Member>();
+        var Users = new ObservableCollection<Member>();
         using (var database = new SQLiteDbContext())
         {
             database.Members.ForEach(p => Users.Add(p));
         }
         return Users;
+    }
+
+    public static void SaveMembers(ObservableCollection<Member> members)
+    {
+        using (var database = new SQLiteDbContext())
+        {
+            database.Members.ExecuteDelete();
+            database.Members.AddRange(members.ToArray());
+            database.SaveChanges();
+        }
     }
 }

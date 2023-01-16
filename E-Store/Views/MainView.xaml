@@ -30,6 +30,10 @@
                 <DataTemplate DataType="{x:Type ViewModels:AdminPanelViewModel}">
                     <Views:AdminPanelView/>
                 </DataTemplate>
+
+                <DataTemplate DataType="{x:Type ViewModels:RegisterViewModel}">
+                    <Views:RegisterView/>
+                </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>
     </Grid>

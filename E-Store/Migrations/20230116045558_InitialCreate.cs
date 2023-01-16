@@ -22,8 +22,7 @@ namespace EStore.Migrations
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     Surname = table.Column<string>(type: "TEXT", nullable: false),
                     UserName = table.Column<string>(type: "TEXT", nullable: false),
-                    Password = table.Column<string>(type: "TEXT", nullable: false),
-                    ImageUrl = table.Column<string>(type: "TEXT", nullable: false)
+                    Password = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -47,11 +46,11 @@ namespace EStore.Migrations
 
             migrationBuilder.InsertData(
                 table: "Members",
-                columns: new[] { "Id", "ImageUrl", "IsAdmin", "Name", "Password", "Surname", "UserName" },
+                columns: new[] { "Id", "IsAdmin", "Name", "Password", "Surname", "UserName" },
                 values: new object[,]
                 {
-                    { 1, "https://avatars.githubusercontent.com/u/99557252?v=4", true, "Elshad", "Hasanoff17", "Hasanov", "hasanoff2005" },
-                    { 2, "https://img.day.az/2016/09/13/step_it_academy.jpg", false, "StepIt", "12345", "Academy", "Step" }
+                    { 1, true, "Elshad", "Hasanoff17", "Hasanov", "hasanoff2005" },
+                    { 2, false, "StepIt", "12345", "Academy", "Step" }
                 });
 
             migrationBuilder.InsertData(

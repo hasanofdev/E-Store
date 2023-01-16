@@ -9,7 +9,6 @@ namespace E_Store.Models
         private string _surname;
         private string _username;
         private string _password;
-        private string _imageUrl;
         private bool isAdmin;
 
         public bool IsAdmin
@@ -18,7 +17,7 @@ namespace E_Store.Models
             set { isAdmin = value; OnPropertyChanged(nameof(IsAdmin)); }
         }
 
-        public int Id { get; set; }
+        public int Id { get { return _id; } set { _id = value; OnPropertyChanged(nameof(Id)); } }
 
         public string Name
         {
@@ -44,22 +43,15 @@ namespace E_Store.Models
             set { _password = value; OnPropertyChanged(Password); }
         }
 
-        public string ImageUrl
-        {
-            get { return _imageUrl; }
-            set { _imageUrl = value; OnPropertyChanged(ImageUrl); }
-        }
-
         public Member() { }
 
-        public Member(int id, string name, string surname, string username, string password, string imageUrl, bool isAdmin)
+        public Member(int id, string name, string surname, string username, string password, bool isAdmin)
         {
             Id = id;
             Name = name;
             Surname = surname;
             UserName = username;
             Password = password;
-            ImageUrl = imageUrl;
             this.isAdmin = isAdmin;
         }
 

@@ -22,10 +22,6 @@ namespace EStore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<bool>("IsAdmin")
                         .HasColumnType("INTEGER");
 
@@ -53,7 +49,6 @@ namespace EStore.Migrations
                         new
                         {
                             Id = 1,
-                            ImageUrl = "https://avatars.githubusercontent.com/u/99557252?v=4",
                             IsAdmin = true,
                             Name = "Elshad",
                             Password = "Hasanoff17",
@@ -63,7 +58,6 @@ namespace EStore.Migrations
                         new
                         {
                             Id = 2,
-                            ImageUrl = "https://img.day.az/2016/09/13/step_it_academy.jpg",
                             IsAdmin = false,
                             Name = "StepIt",
                             Password = "12345",

@@ -7,6 +7,7 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
 	  <StartWorkingDirectory>$(MSBuildProjectDirectory)</StartWorkingDirectory>
+	  <ApplicationIcon>Static Files\Images\EStore.Az.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,6 +20,10 @@
     <None Remove="Static Files\Images\LoginHeader-img.jpg" />
     <None Remove="Static Files\Images\navigate-icon.png" />
     <None Remove="Static Files\Images\user-icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Static Files\Images\EStore.Az.ico" />
   </ItemGroup>
 
   <ItemGroup>

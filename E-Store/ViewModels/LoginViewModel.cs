@@ -4,6 +4,8 @@ using E_Store.Navigations;
 using E_Store.Service;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data.Entity.Core.Objects.DataClasses;
 using System.Net;
 using System.Security;
 using System.Windows;
@@ -14,13 +16,14 @@ internal class LoginViewModel : BaseViewModel
 {
     private readonly NavigationStore _navigationStore;
 
-    public List<Member> Members;
+    public ObservableCollection<Member> Members;
     public Member CurrentUser { get; set; }
 
     public ICommand AboutCommand { get; set; }
     public ICommand HomeCommand { get; set; }
     public ICommand OurFruitCommand { get; set; }
     public ICommand LoginCommand { get; set; }
+    public ICommand RegisterCommand { get; set; }
 
     public Visibility LoginBtnVisibility { get; set; }
     public Visibility ProfileBtnVisibility { get; set; }
@@ -76,6 +79,7 @@ internal class LoginViewModel : BaseViewModel
         HomeCommand = new RelayCommand(ExecuteHomeCommand);
         OurFruitCommand = new RelayCommand(ExecuteOurFruitCommand);
         LoginCommand = new RelayCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
+        RegisterCommand = new RelayCommand(ExecuteRegisterCommand);
 
         if (string.IsNullOrWhiteSpace(CurrentUser.Name))
         {
@@ -93,12 +97,11 @@ internal class LoginViewModel : BaseViewModel
     private void ExecuteAboutCommand(object? parametr) => _navigationStore.CurrentViewModel = new AboutViewModel(_navigationStore, CurrentUser);
     private void ExecuteHomeCommand(object? parametr) => _navigationStore.CurrentViewModel = new HomeViewModel(_navigationStore, CurrentUser);
     private void ExecuteOurFruitCommand(object? paremetr) => _navigationStore.CurrentViewModel = new OurFruitViewModel(_navigationStore, CurrentUser);
-
     private void ExecuteLoginCommand(object? parametr)
     {
         foreach (var member in Members)
         {
-            if (member.UserName == Username && member.Password == ToStringForSecureStr(Password))
+            if (member.UserName == Username && member.Password == Password.ToStringForSecureStr())
             {
                 CurrentUser = member;
                 if (member.IsAdmin)
@@ -111,7 +114,6 @@ internal class LoginViewModel : BaseViewModel
 
         ErrorText = "Username Or Password Incorrect!";
     }
-
     private bool CanExecuteLoginCommand(object? obj)
     {
         bool validData;
@@ -123,6 +125,6 @@ internal class LoginViewModel : BaseViewModel
 
         return validData;
     }
-
-    private string ToStringForSecureStr(SecureString theSecureString) => new NetworkCredential("", theSecureString).Password;
+    private void ExecuteRegisterCommand(object? obj) =>
+        _navigationStore.CurrentViewModel = new RegisterViewModel(_navigationStore,CurrentUser);
 }

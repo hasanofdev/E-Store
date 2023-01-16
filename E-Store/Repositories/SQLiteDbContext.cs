@@ -26,8 +26,8 @@ internal class SQLiteDbContext : DbContext
         );
 
         modelBuilder.Entity<Member>().HasData(
-            new Member(1, "Elshad", "Hasanov", "hasanoff2005", "Hasanoff17", "https://avatars.githubusercontent.com/u/99557252?v=4", true),
-            new Member(2, "StepIt", "Academy", "Step", "12345", "https://img.day.az/2016/09/13/step_it_academy.jpg", false)
+            new Member(1, "Elshad", "Hasanov", "hasanoff2005", "Hasanoff17", true),
+            new Member(2, "StepIt", "Academy", "Step", "12345", false)
         );
     }
 }
