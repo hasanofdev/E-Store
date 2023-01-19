@@ -133,7 +133,7 @@
 
         </Border>
 
-        <Grid Grid.Column="1">
+        <Grid Grid.Column="1" >
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition Height="2.7*"/>

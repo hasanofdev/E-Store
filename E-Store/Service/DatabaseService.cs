@@ -2,7 +2,6 @@
 using E_Store.Models;
 using E_Store.Repositories;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -14,7 +13,7 @@ public class Database_Service
     public static ObservableCollection<Product> GetProducts()
     {
         var products = new ObservableCollection<Product>();
-        using(var database = new SQLiteDbContext())
+        using (var database = new SQLiteDbContext())
         {
             database.Products.ForEach(p => products.Add(p));
         }

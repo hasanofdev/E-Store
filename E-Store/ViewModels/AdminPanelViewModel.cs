@@ -5,7 +5,6 @@ using E_Store.Service;
 using Microsoft.Win32;
 using System;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Net;
 using System.Windows;
 using System.Windows.Input;
@@ -51,7 +50,7 @@ namespace E_Store.ViewModels
 
         public Member currentUser { get; private set; }
 
-        public AdminPanelViewModel(NavigationStore navigationStore,Member currentUser)
+        public AdminPanelViewModel(NavigationStore navigationStore, Member currentUser)
         {
             _navigationStore = navigationStore;
             this.currentUser = currentUser;
@@ -88,7 +87,7 @@ namespace E_Store.ViewModels
         {
             currentUser = new();
             Database_Service.SaveProducts(Products);
-            _navigationStore.CurrentViewModel = new HomeViewModel(_navigationStore,currentUser);
+            _navigationStore.CurrentViewModel = new HomeViewModel(_navigationStore, currentUser);
         }
 
         private void ExecuteEditCommand(object? obj)
@@ -177,7 +176,7 @@ namespace E_Store.ViewModels
             string err = null;
             if (string.IsNullOrWhiteSpace(url))
                 return width > 0;
-                
+
             if (url.StartsWith("https://"))
                 GetPictureSize(url, ref width, ref height, ref err);
             else

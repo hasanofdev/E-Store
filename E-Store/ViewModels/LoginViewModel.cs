@@ -2,13 +2,8 @@
 using E_Store.Models;
 using E_Store.Navigations;
 using E_Store.Service;
-using Microsoft.Extensions.Configuration;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data.Entity.Core.Objects.DataClasses;
-using System.Net;
 using System.Security;
-using System.Windows;
 using System.Windows.Input;
 namespace E_Store.ViewModels;
 
@@ -24,9 +19,6 @@ internal class LoginViewModel : BaseViewModel
     public ICommand OurFruitCommand { get; set; }
     public ICommand LoginCommand { get; set; }
     public ICommand RegisterCommand { get; set; }
-
-    public Visibility LoginBtnVisibility { get; set; }
-    public Visibility ProfileBtnVisibility { get; set; }
 
     private string _username;
 
@@ -80,18 +72,6 @@ internal class LoginViewModel : BaseViewModel
         OurFruitCommand = new RelayCommand(ExecuteOurFruitCommand);
         LoginCommand = new RelayCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
         RegisterCommand = new RelayCommand(ExecuteRegisterCommand);
-
-        if (string.IsNullOrWhiteSpace(CurrentUser.Name))
-        {
-            LoginBtnVisibility = Visibility.Visible;
-            ProfileBtnVisibility = Visibility.Hidden;
-        }
-        else
-        {
-            LoginBtnVisibility = Visibility.Hidden;
-            ProfileBtnVisibility = Visibility.Visible;
-        }
-
     }
 
     private void ExecuteAboutCommand(object? parametr) => _navigationStore.CurrentViewModel = new AboutViewModel(_navigationStore, CurrentUser);
@@ -126,5 +106,5 @@ internal class LoginViewModel : BaseViewModel
         return validData;
     }
     private void ExecuteRegisterCommand(object? obj) =>
-        _navigationStore.CurrentViewModel = new RegisterViewModel(_navigationStore,CurrentUser);
+        _navigationStore.CurrentViewModel = new RegisterViewModel(_navigationStore, CurrentUser);
 }

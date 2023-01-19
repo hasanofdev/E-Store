@@ -18,8 +18,6 @@ namespace E_Store.UserControls
             set { SetValue(ProductNameProperty, value); }
         }
 
-
-
         public static readonly DependencyProperty ProductNameProperty =
           DependencyProperty.Register("ProductName", typeof(string), typeof(ProductControl));
 
@@ -40,9 +38,6 @@ namespace E_Store.UserControls
 
         public static readonly DependencyProperty ImageUrlProperty =
           DependencyProperty.Register("ImageUrl", typeof(string), typeof(ProductControl));
-
-        public double WieghtWeightInstock { get; set; }
-
 
         public ProductControl()
         {

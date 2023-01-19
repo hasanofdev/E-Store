@@ -2,9 +2,6 @@
 using E_Store.Models;
 using E_Store.Navigations;
 using E_Store.Service;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Maps.MapControl.WPF;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -28,7 +25,7 @@ internal class HomeViewModel : BaseViewModel
     public Visibility LoginBtnVisibility { get; private set; }
     public Visibility ProfileBtnVisibility { get; private set; }
 
-    public HomeViewModel(NavigationStore navigationStore,Member currentUser)
+    public HomeViewModel(NavigationStore navigationStore, Member currentUser)
     {
         Products = new();
         int i = 0;
@@ -60,8 +57,8 @@ internal class HomeViewModel : BaseViewModel
         }
     }
 
-    private void ExecuteLoginCommand(object? parametr) => _navigationStore.CurrentViewModel = new LoginViewModel(_navigationStore,CurrentUser);
-    private void ExecuteOurFruitCommand(object? parametr) => _navigationStore.CurrentViewModel = new OurFruitViewModel(_navigationStore,CurrentUser);
-    private void ExecuteAboutCommand(object? parametr) => _navigationStore.CurrentViewModel = new AboutViewModel(_navigationStore,CurrentUser);
+    private void ExecuteLoginCommand(object? parametr) => _navigationStore.CurrentViewModel = new LoginViewModel(_navigationStore, CurrentUser);
+    private void ExecuteOurFruitCommand(object? parametr) => _navigationStore.CurrentViewModel = new OurFruitViewModel(_navigationStore, CurrentUser);
+    private void ExecuteAboutCommand(object? parametr) => _navigationStore.CurrentViewModel = new AboutViewModel(_navigationStore, CurrentUser);
     private void ExecuteNavigateCommand(object? parametr) => Process.Start("chrome.exe", "https://www.google.com/maps/place/STEP+Komp%C3%BCter+Akademiyas%C4%B1,+Baku/@40.4149839,49.8510875,17z/data=!3m1!4b1!4m5!3m4!1s0x403087fbef6b3dfb:0xc32b1d5765759234!8m2!3d40.4149839!4d49.8532762");
 }

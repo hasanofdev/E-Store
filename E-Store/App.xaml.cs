@@ -2,14 +2,6 @@
 using E_Store.Models;
 using E_Store.Navigations;
 using E_Store.ViewModels;
-using E_Store.Views;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using IContainer = Autofac.IContainer;
 
@@ -22,7 +14,7 @@ public partial class App : Application
 {
     public static IContainer? Container { get; private set; }
 
-    private void ApplicationStartup(object sender,StartupEventArgs e)
+    private void ApplicationStartup(object sender, StartupEventArgs e)
     {
 
         NavigationStore navigationStore = new();

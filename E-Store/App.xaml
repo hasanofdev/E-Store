@@ -11,6 +11,7 @@
                 <ResourceDictionary Source="/Dictionaries/ButtonTemp.xaml"/>
                 <ResourceDictionary Source="/Dictionaries/NavbarButton.xaml"/>
                 <ResourceDictionary Source="/Dictionaries/FlatCombo.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/ToastNotifications.Messages;component/Themes/Default.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

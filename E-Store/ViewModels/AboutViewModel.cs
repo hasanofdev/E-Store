@@ -1,12 +1,6 @@
 ﻿using E_Store.Command;
 using E_Store.Models;
 using E_Store.Navigations;
-using E_Store.Service;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -23,7 +17,7 @@ internal class AboutViewModel : BaseViewModel
     public Visibility LoginBtnVisibility { get; private set; }
     public Visibility ProfileBtnVisibility { get; private set; }
 
-    public AboutViewModel(NavigationStore navigationStore,Member currentUser)
+    public AboutViewModel(NavigationStore navigationStore, Member currentUser)
     {
         _navigationStore = navigationStore;
         CurrentUser = currentUser;
@@ -43,7 +37,7 @@ internal class AboutViewModel : BaseViewModel
         }
     }
 
-    private void ExecuteLoginCommand(object? obj) => _navigationStore.CurrentViewModel = new LoginViewModel(_navigationStore,CurrentUser);
-    private void ExecuteHomeCommand(object? obj) => _navigationStore.CurrentViewModel = new HomeViewModel(_navigationStore,CurrentUser);
-    private void ExecuteFruitCommand(object? obj) => _navigationStore.CurrentViewModel = new OurFruitViewModel(_navigationStore,CurrentUser);
+    private void ExecuteLoginCommand(object? obj) => _navigationStore.CurrentViewModel = new LoginViewModel(_navigationStore, CurrentUser);
+    private void ExecuteHomeCommand(object? obj) => _navigationStore.CurrentViewModel = new HomeViewModel(_navigationStore, CurrentUser);
+    private void ExecuteFruitCommand(object? obj) => _navigationStore.CurrentViewModel = new OurFruitViewModel(_navigationStore, CurrentUser);
 }

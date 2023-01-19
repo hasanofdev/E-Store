@@ -3,7 +3,6 @@ using E_Store.Models;
 using E_Store.Navigations;
 using E_Store.Service;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Security;
 using System.Windows.Input;
 
@@ -110,7 +109,7 @@ internal class RegisterViewModel : BaseViewModel
 
     private void ExecuteRegisterCommand(object? parametr)
     {
-        foreach (var member in Members.ToList())
+        foreach (var member in Members)
         {
             if (member.UserName == Username)
             {
@@ -126,6 +125,7 @@ internal class RegisterViewModel : BaseViewModel
 
                 ResultMessage = "Thank you for registering. Welcome!";
                 ResultMessageColor = System.Windows.Media.Brushes.Green;
+                return;
             }
 
         }

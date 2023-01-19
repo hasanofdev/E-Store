@@ -10,8 +10,8 @@ internal class NavigationStore
     public BaseViewModel CurrentViewModel
     {
         get { return _currentViewModel; }
-        set 
-        { 
+        set
+        {
             _currentViewModel = value;
             CurrentViewModelChanged?.Invoke();
         }
