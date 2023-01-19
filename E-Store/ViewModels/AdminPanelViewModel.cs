@@ -1,28 +1,69 @@
-﻿using E_Store.Command;
+﻿using DevExpress.Mvvm.ModuleInjection.Native;
+using E_Store.Command;
 using E_Store.Models;
 using E_Store.Navigations;
 using E_Store.Service;
 using Microsoft.Win32;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net;
+using System.Reflection.Metadata.Ecma335;
 using System.Windows;
 using System.Windows.Input;
 
 namespace E_Store.ViewModels
 {
+
     internal class AdminPanelViewModel : BaseViewModel
     {
         private readonly NavigationStore _navigationStore;
         public ObservableCollection<Product> Products { get; set; }
-        public Product SelectedItem { get; set; }
+        public ObservableCollection<Member> Members { get; set; }
+        public Product SelectedProduct { get; set; }
+        public Member SelectedMember { get; set; }
+        public Dictionary<string, bool> IsAdminChoices { get; set; }
+
+        #region Visibilities
+        private Visibility _membersVisibility;
+        private Visibility _homeVisibility;
+
+        public Visibility MembersVisibility
+        {
+            get { return _membersVisibility; }
+            set { _membersVisibility = value; OnPropertyChanged(nameof(MembersVisibility)); }
+        }
+        public Visibility HomeVisibility
+        {
+            get { return _homeVisibility; }
+            set { _homeVisibility = value; OnPropertyChanged(nameof(HomeVisibility)); }
+        }
+
+        #endregion
+
+        #region HomeCommandDefine
 
         public ICommand ExitCommand { get; set; }
-        public ICommand EditCommand { get; set; }
-        public ICommand DeleteCommand { get; set; }
-        public ICommand AddCommand { get; set; }
-        public ICommand UpdateCommand { get; set; }
-        public ICommand ChooseFileCommand { get; set; }
+        public ICommand HomeCommand { get; set; }
+        public ICommand HomeEditCommand { get; set; }
+        public ICommand HomeDeleteCommand { get; set; }
+        public ICommand HomeAddCommand { get; set; }
+        public ICommand HomeUpdateCommand { get; set; }
+        public ICommand HomeChooseFileCommand { get; set; }
+
+        #endregion
+
+        #region MembersCommandDefine
+
+        public ICommand MembersCommand { get; set; }
+        public ICommand MembersEditCommand { get; set; }
+        public ICommand MembersUpdateCommand { get; set; }
+        public ICommand MembersDeleteCommand { get; set; }
+
+        #endregion
+
+        #region ProductsFields
 
         private string _productName;
 
@@ -48,6 +89,56 @@ namespace E_Store.ViewModels
             set { _imageUrl = value; OnPropertyChanged(nameof(ImageUrl)); }
         }
 
+        #endregion
+
+        #region MembersFields
+
+        private int _id;
+        private string _name;
+        private string _surname;
+        private string _username;
+        private string _password;
+        private bool _auth;
+
+        public int Id
+        {
+            get { return _id; }
+            set { _id = value; OnPropertyChanged(nameof(Id)); }
+        }
+
+
+        public string Name
+        {
+            get { return _name; }
+            set { _name = value; OnPropertyChanged(nameof(Name)); }
+        }
+
+        public string Surname
+        {
+            get { return _surname; }
+            set { _surname = value; OnPropertyChanged(nameof(Surname)); }
+        }
+
+        public string Username
+        {
+            get { return _username; }
+            set { _username = value; OnPropertyChanged(nameof(Username)); }
+        }
+
+        public string Password
+        {
+            get { return _password; }
+            set { _password = value; OnPropertyChanged(nameof(Password)); }
+        }
+
+        public bool Auth
+        {
+            get { return _auth; }
+            set { _auth = value; OnPropertyChanged(nameof(Auth)); }
+        }
+
+        #endregion
+
         public Member currentUser { get; private set; }
 
         public AdminPanelViewModel(NavigationStore navigationStore, Member currentUser)
@@ -55,16 +146,46 @@ namespace E_Store.ViewModels
             _navigationStore = navigationStore;
             this.currentUser = currentUser;
             Products = Database_Service.GetProducts();
+            Members = Database_Service.GetMembers();
 
-            ExitCommand = new RelayCommand(ExecuteExitCommand);
-            EditCommand = new RelayCommand(ExecuteEditCommand);
-            DeleteCommand = new RelayCommand(ExecuteDeleteCommand);
-            AddCommand = new RelayCommand(ExecuteAddCommand, CanExecuteTextBoxChangeCommand);
-            UpdateCommand = new RelayCommand(ExecuteUpdateCommand, CanExecuteTextBoxChangeCommand);
-            ChooseFileCommand = new RelayCommand(ExecuteChooseFileCommand);
+            IsAdminChoices = new();
+            IsAdminChoices.Add("Admin", true);
+            IsAdminChoices.Add("Member", false);
+
+            #region HomeCommandInit
+
+            ExitCommand = new RelayCommand(ExecuteHomeExitCommand);
+            HomeCommand = new RelayCommand(ExecuteHomeCommand);
+            HomeEditCommand = new RelayCommand(ExecuteHomeEditCommand);
+            HomeDeleteCommand = new RelayCommand(ExecuteHomeDeleteCommand);
+            HomeAddCommand = new RelayCommand(ExecuteHomeAddCommand, CanExecuteHomeTextBoxChangeCommand);
+            HomeUpdateCommand = new RelayCommand(ExecuteHomeUpdateCommand, CanExecuteHomeTextBoxChangeCommand);
+            HomeChooseFileCommand = new RelayCommand(ExecuteHomeChooseFileCommand);
+
+            #endregion
+
+            #region MembersCommandInit
+
+            MembersCommand = new RelayCommand(ExecuteMembersCommand);
+            MembersEditCommand = new RelayCommand(ExecuteMembersEditCommand);
+            MembersUpdateCommand = new RelayCommand(ExecuteMembersUpdateCommand);
+            MembersDeleteCommand = new RelayCommand(ExecuteMembersDeleteCommand);
+
+            #endregion
+
+            MembersVisibility = Visibility.Collapsed;
+            HomeVisibility = Visibility.Visible;
         }
 
-        private void ExecuteUpdateCommand(object? obj)
+        #region HomeCommands
+
+        private void ExecuteHomeCommand(object? obj)
+        {
+            MembersVisibility = Visibility.Collapsed;
+            HomeVisibility = Visibility.Visible;
+        }
+
+        private void ExecuteHomeUpdateCommand(object? obj)
         {
             if (!ImageUrlExists(ImageUrl))
             {
@@ -72,35 +193,36 @@ namespace E_Store.ViewModels
                 return;
             }
 
-            if (SelectedItem is null)
+            if (SelectedProduct is null)
             {
                 MessageBox.Show("Item not selected!");
                 return;
             }
 
-            SelectedItem.ProductName = ProductName;
-            SelectedItem.Price = Price;
-            SelectedItem.ImageUrl = ImageUrl;
+            SelectedProduct.ProductName = ProductName;
+            SelectedProduct.Price = Price;
+            SelectedProduct.ImageUrl = ImageUrl;
         }
 
-        private void ExecuteExitCommand(object? obj)
+        private void ExecuteHomeExitCommand(object? obj)
         {
             currentUser = new();
             Database_Service.SaveProducts(Products);
+            Database_Service.SaveMembers(Members);
             _navigationStore.CurrentViewModel = new HomeViewModel(_navigationStore, currentUser);
         }
 
-        private void ExecuteEditCommand(object? obj)
+        private void ExecuteHomeEditCommand(object? obj)
         {
-            ProductName = SelectedItem.ProductName;
-            Price = SelectedItem.Price;
-            ImageUrl = SelectedItem.ImageUrl;
+            ProductName = SelectedProduct.ProductName;
+            Price = SelectedProduct.Price;
+            ImageUrl = SelectedProduct.ImageUrl;
         }
 
-        private void ExecuteDeleteCommand(object? obj) =>
-            Products.Remove(SelectedItem);
+        private void ExecuteHomeDeleteCommand(object? obj) =>
+            Products.Remove(SelectedProduct);
 
-        private void ExecuteAddCommand(object? obj)
+        private void ExecuteHomeAddCommand(object? obj)
         {
             int id = Products[Products.Count - 1].Id + 1;
             if (!ImageUrlExists(ImageUrl))
@@ -112,7 +234,7 @@ namespace E_Store.ViewModels
             Products.Add(new Product(id, ProductName, Price, ImageUrl));
         }
 
-        private void ExecuteChooseFileCommand(object? obj)
+        private void ExecuteHomeChooseFileCommand(object? obj)
         {
             OpenFileDialog openFile = new();
             openFile.Filter = "Image Files|*.jpg;*.jpeg;*.png;";
@@ -120,7 +242,7 @@ namespace E_Store.ViewModels
             ImageUrl = openFile.FileName;
         }
 
-        private bool CanExecuteTextBoxChangeCommand(object? obj)
+        private bool CanExecuteHomeTextBoxChangeCommand(object? obj)
         {
             bool validData = false;
 
@@ -204,5 +326,48 @@ namespace E_Store.ViewModels
             width = bmp.Width;
             height = bmp.Height;
         }
+
+        #endregion
+
+
+        #region MembersCommand
+
+        private void ExecuteMembersCommand(object? obj)
+        {
+            MembersVisibility = Visibility.Visible;
+            HomeVisibility = Visibility.Collapsed;
+        }
+
+        private void ExecuteMembersEditCommand(object? obj)
+        {
+            Id = SelectedMember.Id;
+            Name = SelectedMember.Name;
+            Surname = SelectedMember.Surname;
+            Username = SelectedMember.UserName;
+            Password = SelectedMember.Password;
+            Auth = SelectedMember.IsAdmin;
+        }
+
+        private void ExecuteMembersUpdateCommand(object? obj)
+        {
+            if (SelectedMember is null)
+            {
+                MessageBox.Show("Member not selected!");
+                return;
+            }
+
+            SelectedMember.Name = Name;
+            SelectedMember.Surname = Surname;
+            SelectedMember.UserName = Username;
+            SelectedMember.Password = Password;
+            SelectedMember.IsAdmin = Auth;
+        }
+
+        private void ExecuteMembersDeleteCommand(object? obj)
+        {
+            Members.Remove(SelectedMember);
+        }
+
+        #endregion
     }
 }

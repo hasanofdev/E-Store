@@ -41,6 +41,7 @@
                         BorderThickness="0"
                         Cursor="Hand"
                         Margin="5"
+                        Command="{Binding Path=DataContext.HomeCommand, RelativeSource= {RelativeSource FindAncestor,AncestorType={x:Type Grid}}}"
                         />
 
 
@@ -75,6 +76,7 @@
                         BorderThickness="0"
                         Cursor="Hand"
                         Margin="5"
+                        Command="{Binding Path=DataContext.MembersCommand, RelativeSource= {RelativeSource FindAncestor,AncestorType={x:Type Grid}}}"
                         />
 
 
@@ -133,13 +135,14 @@
 
         </Border>
 
-        <Grid Grid.Column="1" >
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition Height="2.7*"/>
-            </Grid.RowDefinitions>
+        <ContentControl Grid.Column="1" Visibility="{Binding HomeVisibility}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="2.7*"/>
+                </Grid.RowDefinitions>
 
-            <DataGrid
+                <DataGrid
                 VerticalAlignment="Stretch"
                 HorizontalAlignment="Center"
                 Grid.Row="1"
@@ -150,106 +153,106 @@
                 RowHeight="30"
                 AutoGenerateColumns="False"
                 CanUserResizeColumns="False"
-                SelectedItem="{Binding SelectedItem}"
+                SelectedItem="{Binding SelectedProduct}"
                 >
 
-                <DataGrid.Columns>
+                    <DataGrid.Columns>
 
-                    <DataGridTextColumn
+                        <DataGridTextColumn
                         Header="#"
                         Width="auto"
                         FontSize="16"
                         />
 
-                    <DataGridTemplateColumn
+                        <DataGridTemplateColumn
                         Width="auto" 
                         >
-                        <DataGridTemplateColumn.Header>
-                            <TextBlock 
+                            <DataGridTemplateColumn.Header>
+                                <TextBlock 
                                 Text="ID"
                                 FontSize="16"
                                 />
-                        </DataGridTemplateColumn.Header>
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock 
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock 
                                     Text="{Binding Id}"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Center"
                                     />
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn
+                        <DataGridTemplateColumn
                         Width="200"
                         >
-                        <DataGridTemplateColumn.Header>
-                            <TextBlock 
+                            <DataGridTemplateColumn.Header>
+                                <TextBlock 
                                 Text="Product Name"
                                 FontSize="16"
                                 />
-                        </DataGridTemplateColumn.Header>
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock 
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock 
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Center"
                                     Text="{Binding ProductName}"
                                     />
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn
+                        <DataGridTemplateColumn
                         Width="250"
                         >
-                        <DataGridTemplateColumn.Header>
-                            <TextBlock 
+                            <DataGridTemplateColumn.Header>
+                                <TextBlock 
                                 Text="Image Url"
                                 FontSize="16"
                                 />
-                        </DataGridTemplateColumn.Header>
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock 
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock 
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Left"
                                     Text="{Binding ImageUrl}"
                                     />
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Width="70">
-                        <DataGridTemplateColumn.Header>
-                            <TextBlock
+                        <DataGridTemplateColumn Width="70">
+                            <DataGridTemplateColumn.Header>
+                                <TextBlock
                                 Text="Price"
                                 FontSize="16"/>
-                        </DataGridTemplateColumn.Header>
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Center"
                                     Text="{Binding Price}"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn>
-                        <DataGridTemplateColumn.Header>
-                            <TextBlock
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.Header>
+                                <TextBlock
                                 Text="Operations"
                                 FontSize="16"/>
-                        </DataGridTemplateColumn.Header>
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel 
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel 
                                     Orientation="Horizontal"
                                     Background="Transparent"
                                     >
-                                    <Button
+                                        <Button
                                         Template="{DynamicResource ButtonTemplate}"
                                         Margin="0 1"
                                         Content="🖉"
@@ -259,10 +262,10 @@
                                         Width="50"
                                         BorderThickness="0"
                                         Cursor="Hand"
-                                        Command="{Binding Path=DataContext.EditCommand, RelativeSource= {RelativeSource FindAncestor,AncestorType={x:Type DataGrid}}}"
+                                        Command="{Binding Path=DataContext.HomeEditCommand, RelativeSource= {RelativeSource FindAncestor,AncestorType={x:Type DataGrid}}}"
                                         />
-                                    <Button/>
-                                    <Button
+                                        <Button/>
+                                        <Button
                                         Template="{DynamicResource ButtonTemplate}"
                                         Content="🗑"
                                         Margin="0 1"
@@ -272,20 +275,20 @@
                                         Width="50"
                                         BorderThickness="0"
                                         Cursor="Hand"
-                                        Command="{Binding Path=DataContext.DeleteCommand, RelativeSource= {RelativeSource FindAncestor,AncestorType={x:Type DataGrid}}}"
+                                        Command="{Binding Path=DataContext.HomeDeleteCommand, RelativeSource= {RelativeSource FindAncestor,AncestorType={x:Type DataGrid}}}"
                                         />
-                                    <Button/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                                        <Button/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
 
-                </DataGrid.Columns>
-            </DataGrid>
+                    </DataGrid.Columns>
+                </DataGrid>
 
-            <Grid>
-                <Border 
+                <Grid>
+                    <Border 
                     CornerRadius="10"
                     BorderBrush="DarkGray"
                     BorderThickness="2"
@@ -293,20 +296,20 @@
                     Margin="0 5"
                     >
 
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
 
-                        <TextBlock
+                            <TextBlock
                             Grid.Row="0"
                             Grid.Column="0"
                             Text="Product Name"
@@ -317,7 +320,7 @@
                             Margin="5 0"
                             />
 
-                        <TextBox 
+                            <TextBox 
                             Grid.Column="0" 
                             Grid.Row="1"
                             Margin="5"
@@ -327,8 +330,8 @@
                             VerticalContentAlignment="Center"
                             Text="{Binding ProductName}"
                             />
-                        
-                        <TextBlock
+
+                            <TextBlock
                             Grid.Row="2"
                             Grid.Column="0"
                             Text="Price"
@@ -339,7 +342,7 @@
                             Margin="5 0"
                             />
 
-                        <TextBox 
+                            <TextBox 
                             Grid.Column="0" 
                             Grid.Row="3"
                             Margin="5"
@@ -350,7 +353,7 @@
                             Text="{Binding Price}"
                             />
 
-                        <TextBlock
+                            <TextBlock
                             Grid.Row="0"
                             Grid.Column="1"
                             Text="Image Url"
@@ -361,7 +364,7 @@
                             Margin="5 0"
                             />
 
-                        <TextBox 
+                            <TextBox 
                             Grid.Column="1" 
                             Grid.Row="1"
                             Grid.RowSpan="2"
@@ -373,7 +376,7 @@
                             Text="{Binding ImageUrl}"
                             />
 
-                        <Button
+                            <Button
                             Grid.Column="1"
                             Grid.Row="3"
                             Template="{DynamicResource ButtonTemplate}"
@@ -389,12 +392,12 @@
                             FontFamily="Montserrat"
                             VerticalContentAlignment="Center"
                             Cursor="Hand"
-                             Command="{Binding Path=DataContext.UpdateCommand,       
+                             Command="{Binding Path=DataContext.HomeUpdateCommand,       
  RelativeSource= {RelativeSource FindAncestor,
   AncestorType={x:Type Grid}}}"
                             />
 
-                        <Button
+                            <Button
                             Grid.Column="1"
                             Grid.Row="3"
                             Template="{DynamicResource ButtonTemplate}"
@@ -410,12 +413,12 @@
                             FontFamily="Montserrat"
                             VerticalContentAlignment="Center"
                             Cursor="Hand"
-                            Command="{Binding Path=DataContext.AddCommand,       
+                            Command="{Binding Path=DataContext.HomeAddCommand,       
  RelativeSource= {RelativeSource FindAncestor,
   AncestorType={x:Type Grid}}}"
                             />
 
-                        <Button
+                            <Button
                             Grid.Column="1"
                             Grid.Row="3"
                             Template="{DynamicResource ButtonTemplate}"
@@ -431,17 +434,394 @@
                             FontFamily="Montserrat"
                             VerticalContentAlignment="Center"
                             Cursor="Hand"
-                            Command="{Binding Path=DataContext.ChooseFileCommand,       
+                            Command="{Binding Path=DataContext.HomeChooseFileCommand,       
  RelativeSource= {RelativeSource FindAncestor,
   AncestorType={x:Type Grid}}}"
                             />
 
-                    </Grid>
+                        </Grid>
 
-                </Border>
+                    </Border>
+                </Grid>
+
             </Grid>
+        </ContentControl>
 
-        </Grid>
+        <ContentControl Grid.Column="1" Visibility="{Binding MembersVisibility}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="2.7*"/>
+                </Grid.RowDefinitions>
+
+                <DataGrid
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Center"
+                Grid.Row="1"
+                ItemsSource="{Binding Members}"
+                IsReadOnly="True"
+                RowBackground="White"
+                VerticalGridLinesBrush="White"
+                RowHeight="30"
+                AutoGenerateColumns="False"
+                CanUserResizeColumns="False"
+                SelectedItem="{Binding SelectedMember}"
+                >
+
+                    <DataGrid.Columns>
+
+                        <DataGridTextColumn
+                        Header="#"
+                        Width="auto"
+                        FontSize="16"
+                        />
+
+                        <DataGridTemplateColumn
+                        Width="auto" 
+                        >
+                            <DataGridTemplateColumn.Header>
+                                <TextBlock 
+                                Text="ID"
+                                FontSize="16"
+                                />
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock 
+                                    Text="{Binding Id}"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn
+                        Width="150"
+                        >
+                            <DataGridTemplateColumn.Header>
+                                <TextBlock 
+                                Text="Name"
+                                FontSize="16"
+                                />
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock 
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Text="{Binding Name}"
+                                    />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn
+                        Width="180"
+                        >
+                            <DataGridTemplateColumn.Header>
+                                <TextBlock 
+                                Text="Surname"
+                                FontSize="16"
+                                />
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock 
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                    Text="{Binding Surname}"
+                                    />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        
+                        <DataGridTemplateColumn
+                        Width="200"
+                        >
+                            <DataGridTemplateColumn.Header>
+                                <TextBlock 
+                                Text="Username"
+                                FontSize="16"
+                                />
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock 
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                    Text="{Binding UserName}"
+                                    />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Width="70">
+                            <DataGridTemplateColumn.Header>
+                                <TextBlock
+                                Text="Auth"
+                                FontSize="16"/>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Text="{Binding IsAdmin}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.Header>
+                                <TextBlock
+                                Text="Operations"
+                                FontSize="16"/>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel 
+                                    Orientation="Horizontal"
+                                    Background="Transparent"
+                                    >
+                                        <Button
+                                        Template="{DynamicResource ButtonTemplate}"
+                                        Margin="0 1"
+                                        Content="🖉"
+                                        FontSize="18"
+                                        Foreground="White"
+                                        Background="#072CF9"
+                                        Width="50"
+                                        BorderThickness="0"
+                                        Cursor="Hand"
+                                        Command="{Binding Path=DataContext.MembersEditCommand, RelativeSource= {RelativeSource FindAncestor,AncestorType={x:Type DataGrid}}}"
+                                        />
+                                        <Button/>
+                                        <Button
+                                        Template="{DynamicResource ButtonTemplate}"
+                                        Content="🗑"
+                                        Margin="0 1"
+                                        FontSize="18"
+                                        Foreground="White"
+                                        Background="red"
+                                        Width="50"
+                                        BorderThickness="0"
+                                        Cursor="Hand"
+                                        Command="{Binding Path=DataContext.MembersDeleteCommand, RelativeSource= {RelativeSource FindAncestor,AncestorType={x:Type DataGrid}}}"
+                                        />
+                                        <Button/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <Grid>
+                    <Border 
+                        CornerRadius="10"
+                        BorderBrush="DarkGray"
+                        BorderThickness="2"
+                        Width="655"
+                        Margin="0 5"
+                        MinHeight="148"
+                    >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Text="ID"
+                                FontSize="15"
+                                FontWeight="Medium"
+                                FontFamily="Montserrat"
+                                VerticalAlignment="Center"
+                                Margin="5 0"
+                            />
+
+                            <TextBox
+                                Grid.Column="0"
+                                Grid.Row="0"
+                                VerticalAlignment="Center"
+                                Height="25"
+                                Margin="5 40 0 0"
+                                FontSize="13"
+                                FontFamily="Montserrat"
+                                Text="{Binding Id}"
+                                />
+
+                            <TextBlock
+                                Grid.Column="1"
+                                Grid.Row="0"
+                                Text="Name"
+                                VerticalAlignment="Center"
+                                Margin="5 0"
+                                FontSize="15"
+                                FontFamily="Montserrat"
+                                FontWeight="Medium"
+                                />
+
+                            <TextBox
+                                Grid.Column="1"
+                                Grid.Row="0"
+                                VerticalAlignment="Center"
+                                Margin="5 40 0 0"
+                                Height="25"
+                                FontSize="13"
+                                FontFamily="Montserrat"
+                                Text="{Binding Name}"
+                                />
+
+                            <TextBlock
+                                Grid.Column="2"
+                                Grid.Row="0"
+                                Text="Surname"
+                                VerticalAlignment="Center"
+                                Margin="5 0"
+                                FontSize="15"
+                                FontFamily="Montserrat"
+                                FontWeight="Medium"
+                                />
+
+                            <TextBox
+                                Grid.Column="2"
+                                Grid.Row="0"
+                                VerticalAlignment="Center"
+                                Margin="5 40 0 0"
+                                Height="25"
+                                FontSize="13"
+                                FontFamily="Montserrat"
+                                Text ="{Binding Surname}"
+                                />
+
+                            <TextBlock
+                                Grid.Column="0"
+                                Grid.Row="1"
+                                Text="Username"
+                                VerticalAlignment="Center"
+                                Margin="5 0"
+                                FontSize="15"
+                                FontFamily="Montserrat"
+                                FontWeight="Medium"
+                                />
+
+                            <TextBox
+                                Grid.Column="0"
+                                Grid.Row="1"
+                                VerticalAlignment="Center"
+                                Margin="5 40 0 0"
+                                Height="25"
+                                FontSize="13"
+                                FontFamily="Montserrat"
+                                Text="{Binding Username}"
+                                />
+
+                            <TextBlock
+                                Grid.Column="1"
+                                Grid.Row="1"
+                                Text="Password"
+                                FontSize="15"
+                                FontWeight="Medium"
+                                FontFamily="Montserrat"
+                                VerticalAlignment="Center"
+                                Margin="5 0"
+                                />
+
+                            <TextBox
+                                Grid.Column="1"
+                                Grid.Row="1"
+                                VerticalAlignment="Center"
+                                Margin="5 40 0 0"
+                                Height="25"
+                                FontSize="13"
+                                FontFamily="Montserrat"
+                                Text="{Binding Password}"
+                                />
+
+                            <TextBlock
+                                Grid.Column="2"
+                                Grid.Row="1"
+                                Text="Auth"
+                                FontSize="15"
+                                FontFamily="Montserrat"
+                                FontWeight="Medium"
+                                VerticalAlignment="Center"
+                                Margin="5 0"
+                                />
+
+                            <ComboBox
+                                Grid.Column="2"
+                                Grid.Row="1"
+                                VerticalAlignment="Center"
+                                Height="25"
+                                Margin="5 40 0 0"
+                                ItemsSource="{Binding IsAdminChoices}"
+                                DisplayMemberPath="Key"
+                                SelectedValuePath="Value"
+                                SelectedValue="{Binding Auth}"
+                                />
+
+                            <Button 
+                                Content="Add"
+                                FontSize="15"
+                                FontFamily="Montserrat"
+                                FontWeight="Medium"
+                                Grid.Row="1"
+                                Grid.Column="3"
+                                VerticalAlignment="Bottom"
+                                Margin="5 5"
+                                Height="35"
+                                Cursor="Hand"
+                                Template="{DynamicResource ButtonTemplate}"
+                                Foreground="White"
+                                Background="#04A617"
+                                BorderBrush="#04A617"
+                                BorderThickness="1"
+                                Command="{Binding Path=DataContext.MembersAddCommand,       
+ RelativeSource= {RelativeSource FindAncestor,
+  AncestorType={x:Type Grid}}}"
+                                />
+
+                            <Button
+                                Content="Update"
+                                FontSize="15"
+                                FontFamily="Montserrat"
+                                FontWeight="Medium"
+                                Grid.Row="0"
+                                Grid.Column="3"
+                                VerticalAlignment="Bottom"
+                                Margin="5 5"
+                                Height="35"
+                                Cursor="Hand"
+                                Template="{DynamicResource ButtonTemplate}"
+                                Foreground="White"
+                                Background="Orange"
+                                BorderBrush="Orange"
+                                BorderThickness="1"
+                                Command="{Binding Path=DataContext.MembersUpdateCommand,       
+ RelativeSource= {RelativeSource FindAncestor,
+  AncestorType={x:Type Grid}}}"
+                                />
+
+                        </Grid>
+                    </Border>
+                </Grid>
+
+            </Grid>
+        </ContentControl>
 
     </Grid>
 </UserControl>
