@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Net;
 using System.Reflection.Metadata.Ecma335;
 using System.Windows;
@@ -60,6 +61,7 @@ namespace E_Store.ViewModels
         public ICommand MembersEditCommand { get; set; }
         public ICommand MembersUpdateCommand { get; set; }
         public ICommand MembersDeleteCommand { get; set; }
+        public ICommand MembersAddCommand { get; set; }
 
         #endregion
 
@@ -168,8 +170,9 @@ namespace E_Store.ViewModels
 
             MembersCommand = new RelayCommand(ExecuteMembersCommand);
             MembersEditCommand = new RelayCommand(ExecuteMembersEditCommand);
-            MembersUpdateCommand = new RelayCommand(ExecuteMembersUpdateCommand);
+            MembersUpdateCommand = new RelayCommand(ExecuteMembersUpdateCommand,CanExecuteMembersAddCommand);
             MembersDeleteCommand = new RelayCommand(ExecuteMembersDeleteCommand);
+            MembersAddCommand = new RelayCommand(ExecuteMembersAddCommand,CanExecuteMembersAddCommand);
 
             #endregion
 
@@ -181,6 +184,13 @@ namespace E_Store.ViewModels
 
         private void ExecuteHomeCommand(object? obj)
         {
+            Id = 0;
+            Name = "";
+            Surname = "";
+            Username = "";
+            Password = "";
+            Auth = false;
+
             MembersVisibility = Visibility.Collapsed;
             HomeVisibility = Visibility.Visible;
         }
@@ -202,6 +212,7 @@ namespace E_Store.ViewModels
             SelectedProduct.ProductName = ProductName;
             SelectedProduct.Price = Price;
             SelectedProduct.ImageUrl = ImageUrl;
+            MessageBox.Show("Succesfuly Updated!", "Product Uptaded", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void ExecuteHomeExitCommand(object? obj)
@@ -214,6 +225,10 @@ namespace E_Store.ViewModels
 
         private void ExecuteHomeEditCommand(object? obj)
         {
+
+            if (SelectedProduct is null)
+                return;
+
             ProductName = SelectedProduct.ProductName;
             Price = SelectedProduct.Price;
             ImageUrl = SelectedProduct.ImageUrl;
@@ -232,6 +247,7 @@ namespace E_Store.ViewModels
             }
 
             Products.Add(new Product(id, ProductName, Price, ImageUrl));
+            MessageBox.Show("Succesfuly Added!", "Product Added", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void ExecuteHomeChooseFileCommand(object? obj)
@@ -329,17 +345,23 @@ namespace E_Store.ViewModels
 
         #endregion
 
-
         #region MembersCommand
 
         private void ExecuteMembersCommand(object? obj)
         {
+            ProductName = "";
+            ImageUrl = "";
+            Price= 0;
+
             MembersVisibility = Visibility.Visible;
             HomeVisibility = Visibility.Collapsed;
         }
 
         private void ExecuteMembersEditCommand(object? obj)
         {
+            if (SelectedMember is null)
+                return;
+            
             Id = SelectedMember.Id;
             Name = SelectedMember.Name;
             Surname = SelectedMember.Surname;
@@ -361,11 +383,38 @@ namespace E_Store.ViewModels
             SelectedMember.UserName = Username;
             SelectedMember.Password = Password;
             SelectedMember.IsAdmin = Auth;
+            MessageBox.Show("Succesfuly Uptaded!", "Member Uptaded", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void ExecuteMembersDeleteCommand(object? obj)
         {
             Members.Remove(SelectedMember);
+        }
+
+        private void ExecuteMembersAddCommand(object? obj)
+        {
+            int id = Members[Members.Count - 1].Id + 1;
+            if (Members.Any(m => m.UserName == Username))
+            {
+                MessageBox.Show("Username Already Exists!","Error",MessageBoxButton.OK,MessageBoxImage.Error);
+                return;
+            }
+            Members.Add(new Member(id, Name, Surname, Username, Password, Auth));
+            MessageBox.Show("Succesfuly Added!","Member Added",MessageBoxButton.OK,MessageBoxImage.Information);
+        }
+
+        private bool CanExecuteMembersAddCommand(object? obj)
+        {
+            bool validData = false;
+
+            if (string.IsNullOrWhiteSpace(Name) || Name.Length < 3
+                || string.IsNullOrWhiteSpace(Surname) || Surname.Length < 3
+                || string.IsNullOrWhiteSpace(Username) || Username.Length < 3
+                || string.IsNullOrWhiteSpace(Password) || Password.Length < 3)
+                validData = false;
+            else validData = true;
+
+            return validData;
         }
 
         #endregion

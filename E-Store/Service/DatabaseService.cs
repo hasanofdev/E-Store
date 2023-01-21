@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace E_Store.Service;
 
-public class Database_Service
+ class Database_Service
 {
 
     public static ObservableCollection<Product> GetProducts()
@@ -46,6 +46,47 @@ public class Database_Service
         {
             database.Members.ExecuteDelete();
             database.Members.AddRange(members.ToArray());
+            database.SaveChanges();
+        }
+    }
+
+    public static ObservableCollection<Order> GetOrders()
+    {
+        var Orders = new ObservableCollection<Order>();
+        using(var database = new SQLiteDbContext())
+        {
+            database.Orders.ForEach(o => Orders.Add(o));
+        }
+
+        return Orders;
+    }
+
+    public static void SaveOrders(ObservableCollection<Order> orders)
+    {
+        using(var database = new SQLiteDbContext())
+        {
+            database.Orders.ExecuteDelete();
+            database.Orders.AddRange(orders.ToArray());
+            database.SaveChanges();
+        }
+    }
+
+    public static ObservableCollection<MessageData> GetMessages()
+    {
+        var Messages = new ObservableCollection<MessageData>();
+        using(var database = new SQLiteDbContext())
+        {
+            database.Messages.ForEach(m => Messages.Add(m));
+        }
+
+        return Messages;
+    }
+
+    public static void SaveMessages(MessageData message)
+    {
+        using (var database = new SQLiteDbContext())
+        {
+            database.Messages.Add(message);
             database.SaveChanges();
         }
     }

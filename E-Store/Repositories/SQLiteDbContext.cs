@@ -7,6 +7,8 @@ internal class SQLiteDbContext : DbContext
 {
     public DbSet<Member> Members { get; set; }
     public DbSet<Product> Products { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    public DbSet<MessageData> Messages { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseSqlite($"Data Source = EStore.db");
 
@@ -29,5 +31,13 @@ internal class SQLiteDbContext : DbContext
             new Member(1, "Elshad", "Hasanov", "hasanoff2005", "Hasanoff17", true),
             new Member(2, "StepIt", "Academy", "Step", "12345", false)
         );
+
+        modelBuilder.Entity<Order>().HasData(
+            new Order("Step", "Apple", 3.40, 1)
+            );
+
+        modelBuilder.Entity<MessageData>().HasData(
+            new MessageData(1,"Fruit is Great!!!!", "hesenovelsad468@gmail.com", "Elshad Hasanov")
+            );
     }
 }

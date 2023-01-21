@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -30,6 +31,36 @@ namespace EStore.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Messages",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Message = table.Column<string>(type: "TEXT", nullable: false),
+                    Email = table.Column<string>(type: "TEXT", nullable: false),
+                    Fullname = table.Column<string>(type: "TEXT", nullable: false),
+                    Created = table.Column<DateTime>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Messages", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "TEXT", nullable: false),
+                    ProductName = table.Column<string>(type: "TEXT", nullable: false),
+                    Weight = table.Column<double>(type: "REAL", nullable: false),
+                    Price = table.Column<double>(type: "REAL", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
@@ -54,6 +85,16 @@ namespace EStore.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Messages",
+                columns: new[] { "Id", "Created", "Email", "Fullname", "Message" },
+                values: new object[] { 1, new DateTime(2023, 1, 19, 20, 41, 45, 102, DateTimeKind.Local).AddTicks(3889), "hesenovelsad468@gmail.com", "Elshad Hasanov", "Fruit is Great!!!!" });
+
+            migrationBuilder.InsertData(
+                table: "Orders",
+                columns: new[] { "Id", "Price", "ProductName", "Weight" },
+                values: new object[] { "Step", 3.3999999999999999, "Apple", 1.0 });
+
+            migrationBuilder.InsertData(
                 table: "Products",
                 columns: new[] { "Id", "ImageUrl", "Price", "ProductName" },
                 values: new object[,]
@@ -76,6 +117,12 @@ namespace EStore.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Members");
+
+            migrationBuilder.DropTable(
+                name: "Messages");
+
+            migrationBuilder.DropTable(
+                name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "Products");

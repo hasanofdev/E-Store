@@ -198,15 +198,57 @@ Keyfiyyətli Meyvələrin Satışı Üçün Yaradılıb!&#10;Reklam Və Sponsorl
                 </Grid>
 
                 <StackPanel>
-                    <Label Content="Email" FontSize="16" Margin="10 0"/>
-                    <TextBox Padding="0 6" FontSize="16" Margin="10 0"></TextBox>
-                    <Label Content="Fullname" FontSize="16" Margin="10 0"/>
-                    <TextBox Padding="0 6" FontSize="16" Margin="10 0"></TextBox>
-                    <Label Content="Message" FontSize="16" Margin="10 0"/>
-                    <TextBox Padding="0 6" FontSize="16" Margin="10 0"></TextBox>
+                    <Label 
+                        Content="Email" 
+                        FontSize="16" 
+                        Margin="10 0"/>
 
-                    <Button Template="{DynamicResource ButtonTemplate}" Content="Send" HorizontalAlignment="Left" FontSize="20"
-                            Padding="35 5" Background="Black" Cursor="Hand" Foreground="White" Margin="10"/>
+                    <TextBox
+                        Padding="0 6"
+                        FontSize="16"
+                        Margin="10 0"
+                        Text="{Binding Email}"
+                        />
+                    
+                    <Label 
+                        Content="Fullname"
+                        FontSize="16"
+                        Margin="10 0"
+                        />
+
+                    <TextBox
+                        Padding="0 6"
+                        FontSize="16"
+                        Margin="10 0"
+                        Text="{Binding FullName}"
+                        />
+                    
+                    <Label 
+                        Content="Message"
+                        FontSize="16"
+                        Margin="10 0"
+                        />
+                    
+                    <TextBox 
+                        Padding="0 6"
+                        FontSize="16"
+                        Margin="10 0"
+                        Text="{Binding Message}"
+                        />
+
+                    <Button
+                        Template="{DynamicResource ButtonTemplate}"
+                        Content="Send"
+                        HorizontalAlignment="Left"
+                        FontSize="20"
+                        Padding="35 5" 
+                        Background="Black" 
+                        Cursor="Hand"
+                        Foreground="White"
+                        Margin="10"
+                        Command="{Binding SendMessageCommand}"
+                        />
+                    
                 </StackPanel>
             </Grid>
 

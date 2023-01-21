@@ -45,7 +45,7 @@
             </Border>
 
             <StackPanel Grid.Row="1">
-                <TextBlock Text="{Binding ProductName}" HorizontalAlignment="Center" FontSize="20" TextWrapping="WrapWithOverflow" MaxHeight="60" Margin="0 5 0 0"/>
+                <TextBlock Text="{Binding ProductName}" HorizontalAlignment="Center" FontSize="20" MaxHeight="60" Margin="0 5 0 0"/>
                 <TextBlock Text="From To Azerbaijan" HorizontalAlignment="Center" FontSize="16" Margin="20"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <TextBlock Text="{Binding Price}" HorizontalAlignment="Center" FontSize="16"/>

@@ -18,7 +18,8 @@ namespace E_Store.ViewModels;
 internal class OurFruitViewModel : BaseViewModel
 {
     public ObservableCollection<Product> Products { get; set; }
-    public ObservableCollection<Order> Orders { get; private set; }
+    public ObservableCollection<Order> NewOrders { get; set; }
+    public ObservableCollection<Order> AllOrders { get; set; }
 
     public ICommand AboutCommand { get; set; }
     public ICommand HomeCommand { get; set; }
@@ -27,7 +28,6 @@ internal class OurFruitViewModel : BaseViewModel
     public ICommand BuyNowCommand { get; set; }
 
     public Member CurrentUser { get; private set; }
-
     public Visibility LoginBtnVisibility { get; private set; }
     public Visibility ProfileBtnVisibility { get; private set; }
     private readonly Notifier _notifier = new Notifier(cfg =>
@@ -52,7 +52,8 @@ internal class OurFruitViewModel : BaseViewModel
         Products = Database_Service.GetProducts();
         _navigationStore = navigationStore;
         CurrentUser = currentUser;
-        Orders = new();
+        AllOrders = Database_Service.GetOrders();
+        NewOrders = new();
 
 
         AboutCommand = new RelayCommand(ExecuteAboutCommand);
@@ -76,12 +77,12 @@ internal class OurFruitViewModel : BaseViewModel
     private void ExecuteBuyNowCommand(object? obj)
     {
         ProductControl product = obj as ProductControl;
-        if (!string.IsNullOrWhiteSpace(CurrentUser.Name) && Orders.IndexOf(p => p.ProductName == product.ProductName) == -1)
+        if (!string.IsNullOrWhiteSpace(CurrentUser.Name) && NewOrders.IndexOf(p => p.ProductName == product.ProductName) == -1)
         {
-            Orders.Add(new Order(CurrentUser.UserName, product.ProductName, product.Price, 0));
+            NewOrders.Add(new Order(CurrentUser.UserName, product.ProductName, product.Price, 0));
             _notifier.ShowSuccess($"{product.ProductName} Added\nMove To Basket To See All");
         }
-        else if (Orders.IndexOf(p => p.ProductName == product.ProductName) != -1)
+        else if (NewOrders.IndexOf(p => p.ProductName == product.ProductName) != -1)
             _notifier.ShowError(product.ProductName + " Already Exists!");
         else if (string.IsNullOrWhiteSpace(CurrentUser.Name))
             _notifier.ShowInformation("Please Login or Create New Account.");
@@ -97,7 +98,7 @@ internal class OurFruitViewModel : BaseViewModel
             ExecuteLoginCommand(null);
         else
         {
-            BasketPage page = new(Orders, CurrentUser);
+            BasketPage page = new(NewOrders, CurrentUser,AllOrders);
             page.ShowDialog();
         }
     }

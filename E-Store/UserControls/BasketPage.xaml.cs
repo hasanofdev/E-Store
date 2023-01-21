@@ -1,6 +1,8 @@
 ﻿using DevExpress.Mvvm.Native;
 using E_Store.Command;
 using E_Store.Models;
+using E_Store.Service;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -38,13 +40,15 @@ namespace E_Store.UserControls
         public ICommand BuyAllCommand { get; set; }
 
 
-        public ObservableCollection<Order> Orders { get; set; }
+        public ObservableCollection<Order> NewOrders { get; set; }
+        public ObservableCollection<Order> AllOrders { get; set; }
 
-        public BasketPage(ObservableCollection<Order> orders, Member member)
+        public BasketPage(ObservableCollection<Order> neworders, Member member, ObservableCollection<Order> allorders)
         {
             DataContext = this;
             CurrentUser = member;
-            Orders = orders;
+            NewOrders = neworders;
+            AllOrders = allorders;
             BuyAllCommand = new RelayCommand(ExecuteBuyAllCommand);
             InitializeComponent();
         }
@@ -52,17 +56,23 @@ namespace E_Store.UserControls
         private void ExecuteBuyAllCommand(object? obj)
         {
             double price = default;
-            Orders.ForEach(o=>price+= o.Price * o.Weight);
-            MessageBoxResult result =  MessageBox.Show($"Total Cost - {price}$. Do You Want Continue?","Payment",MessageBoxButton.YesNo,MessageBoxImage.Exclamation);
+            NewOrders.ForEach(o => price += o.Price * o.Weight);
+            MessageBoxResult result = MessageBox.Show($"Total Cost - {price}$. Do You Want Continue?", "Payment", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
             switch (result)
             {
                 case MessageBoxResult.Yes:
-                    _notifier.ShowSuccess("Purchase Completed Successfully!");
-                    break;
+                    {
+                        _notifier.ShowSuccess("Purchase Completed Successfully!");
+                        NewOrders.ForEach(o => AllOrders.Add(o));
+                        Database_Service.SaveOrders(AllOrders);
+                        break;
+                    }
                 default:
                     _notifier.ShowWarning("Payment Cancelled");
                     break;
             }
+
+
         }
 
     }
