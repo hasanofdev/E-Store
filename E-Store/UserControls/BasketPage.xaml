@@ -50,7 +50,7 @@
             VerticalScrollBarVisibility="Auto"
             HorizontalScrollBarVisibility="Disabled"
             >
-            <ItemsControl ItemsSource="{Binding Orders}">
+            <ItemsControl ItemsSource="{Binding NewOrders}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel/>
