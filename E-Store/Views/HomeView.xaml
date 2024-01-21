@@ -133,24 +133,22 @@ Keyfiyyətli Meyvələrin Satışı Üçün Yaradılıb!&#10;Reklam Və Sponsorl
             </Grid>
 
             <Grid Grid.Row="4">
-                <ScrollViewer Margin="0,10,0,0" Grid.Row="1" VerticalScrollBarVisibility="Auto">
-                    <ItemsControl ItemsSource="{Binding Products}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <UserControls:ProductControl  ProductName="{Binding ProductName}"  Margin="10" ImageUrl="{Binding ImageUrl}" Price="{Binding Price}">
-                                    <dvxcc:Interaction.Behaviors>
-                                        <dvxcc:EventToCommand EventName="BuyNowCommand" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}, AncestorLevel=2}, Path=DataContext.OurFruitCommand}"></dvxcc:EventToCommand>
-                                    </dvxcc:Interaction.Behaviors>
-                                </UserControls:ProductControl>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </ScrollViewer>
+                <ItemsControl ItemsSource="{Binding Products}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <UserControls:ProductControl  ProductName="{Binding ProductName}"  Margin="10" ImageUrl="{Binding ImageUrl}" Price="{Binding Price}">
+                                <dvxcc:Interaction.Behaviors>
+                                    <dvxcc:EventToCommand EventName="BuyNowCommand" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}, AncestorLevel=2}, Path=DataContext.OurFruitCommand}"></dvxcc:EventToCommand>
+                                </dvxcc:Interaction.Behaviors>
+                            </UserControls:ProductControl>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </Grid>
 
             <Grid Grid.Row="5">
@@ -159,7 +157,7 @@ Keyfiyyətli Meyvələrin Satışı Üçün Yaradılıb!&#10;Reklam Və Sponsorl
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <map:Map Name="map" Grid.Column="1" ZoomLevel="10.5" Center="40.4093, 49.8671" Margin="0 15">
+                <map:Map Name="map" Grid.Column="1" ZoomLevel="10.5" ScaleVisibility="Hidden" IsEnabled="False" Center="40.4093, 49.8671" Margin="0 15">
                     <map:Pushpin Location="40.4149839,49.8510875"></map:Pushpin>
                 </map:Map>
 
@@ -252,28 +250,7 @@ Keyfiyyətli Meyvələrin Satışı Üçün Yaradılıb!&#10;Reklam Və Sponsorl
                 </StackPanel>
             </Grid>
 
-            <Grid Grid.Row="6" Background="#2e2e2e">
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-
-                <Label Foreground="White" Grid.Row="0" Content="NINOM" FontSize="40px" FontWeight="Bold"
-                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
-                <Label Foreground="White" Grid.Row="1" HorizontalAlignment="Left" Content="📌 STEP Kompüter Akademiyası, Baku" FontSize="16"
-                       VerticalAlignment="Center" Cursor="Hand" Margin="15 0"/>
-
-                <Label Foreground="White" Grid.Row="1" HorizontalAlignment="Center" Content="📞 +(994) 050-883-0844" FontSize="16" 
-                       VerticalAlignment="Center" Cursor="Hand"/>
-
-                <Label Foreground="White" Grid.Row="1" HorizontalAlignment="Right" Content="📧 hesenovelsad468@gmail.com" FontSize="16"
-                       VerticalAlignment="Center" Cursor="Hand" Margin="15 0"></Label>
-
-                <TextBlock Foreground="White" Grid.Row="2" HorizontalAlignment="Center" Text="Ⓒ 2023 All Rights Reserved.Design by LinkMedia.az"
-                       VerticalAlignment="Bottom" FontSize="20" Cursor="IBeam"/>
-            </Grid>
+            <UserControls:BottomPanel Grid.Row="6" Height="180" VerticalAlignment="Bottom"></UserControls:BottomPanel>
 
         </Grid>
     </ScrollViewer>

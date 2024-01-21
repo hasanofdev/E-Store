@@ -94,6 +94,7 @@
                         BorderThickness="0"
                         Cursor="Hand"
                         Margin="5"
+                        Command="{Binding Path=DataContext.WalletCommand, RelativeSource= {RelativeSource FindAncestor,AncestorType={x:Type Grid}}}"
                         />
 
 
@@ -135,7 +136,7 @@
 
         </Border>
 
-        <ContentControl Grid.Column="1" Visibility="Hidden">
+        <ContentControl Grid.Column="1" Visibility="{Binding HomeVisibility}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -445,7 +446,7 @@
             </Grid>
         </ContentControl>
 
-        <ContentControl Grid.Column="1" Visibility="Hidden">
+        <ContentControl Grid.Column="1" Visibility="{Binding MembersVisibility}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -820,7 +821,7 @@
             </Grid>
         </ContentControl>
 
-        <ContentControl Grid.Column="1" Visibility="Visible">
+        <ContentControl Grid.Column="1" Visibility="{Binding WalletVisibility}">
             <TextBlock
                 FontSize="40"
                 HorizontalAlignment="Center"

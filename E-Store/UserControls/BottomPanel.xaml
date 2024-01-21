@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="E_Store.UserControls.BottomPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <Grid Grid.Row="6" Height="180" Background="#2e2e2e">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Label Foreground="White" Grid.Row="0" Content="NINOM" FontSize="40px" FontWeight="Bold"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+        <Label Foreground="White" Grid.Row="1" HorizontalAlignment="Left" Content="📌 STEP Kompüter Akademiyası, Baku" FontSize="16"
+                       VerticalAlignment="Center" Cursor="Hand" Margin="15 0"/>
+
+        <Label Foreground="White" Grid.Row="1" HorizontalAlignment="Center" Content="📞 +(994) 050-883-0844" FontSize="16" 
+                       VerticalAlignment="Center" Cursor="Hand"/>
+
+        <Label Foreground="White" Grid.Row="1" HorizontalAlignment="Right" Content="📧 hesenovelsad468@gmail.com" FontSize="16"
+                       VerticalAlignment="Center" Cursor="Hand" Margin="15 0"></Label>
+
+        <TextBlock Foreground="White" Grid.Row="2" HorizontalAlignment="Center" Text="Ⓒ 2023 All Rights Reserved.Design by LinkMedia.az"
+                       VerticalAlignment="Bottom" FontSize="20" Cursor="IBeam"/>
+    </Grid>
+</UserControl>

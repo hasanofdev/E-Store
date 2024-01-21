@@ -97,7 +97,6 @@
             Background="Transparent"
             Cursor="Hand"
             Margin="0 0 10 0"
-            Command="{Binding BasketCommand}"
             />
 
         <ScrollViewer Margin="0,10,0,0" Grid.Row="2" VerticalScrollBarVisibility="Auto">

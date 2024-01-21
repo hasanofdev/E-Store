@@ -29,6 +29,7 @@ namespace E_Store.ViewModels
         #region Visibilities
         private Visibility _membersVisibility;
         private Visibility _homeVisibility;
+        private Visibility _walletVisibility;
 
         public Visibility MembersVisibility
         {
@@ -39,7 +40,13 @@ namespace E_Store.ViewModels
         {
             get { return _homeVisibility; }
             set { _homeVisibility = value; OnPropertyChanged(nameof(HomeVisibility)); }
+        }   
+        public Visibility WalletVisibility
+        {
+            get { return _walletVisibility; }
+            set { _walletVisibility = value; OnPropertyChanged(nameof(WalletVisibility)); }
         }
+
 
         #endregion
 
@@ -62,6 +69,12 @@ namespace E_Store.ViewModels
         public ICommand MembersUpdateCommand { get; set; }
         public ICommand MembersDeleteCommand { get; set; }
         public ICommand MembersAddCommand { get; set; }
+
+        #endregion
+
+        #region WalletCommandDefine
+
+        public ICommand WalletCommand { get; set; }
 
         #endregion
 
@@ -176,7 +189,14 @@ namespace E_Store.ViewModels
 
             #endregion
 
+            #region WalletCommandInit
+
+            WalletCommand = new RelayCommand(ExecuteWalletCommand);
+
+            #endregion
+
             MembersVisibility = Visibility.Collapsed;
+            WalletVisibility = Visibility.Collapsed;
             HomeVisibility = Visibility.Visible;
         }
 
@@ -192,6 +212,7 @@ namespace E_Store.ViewModels
             Auth = false;
 
             MembersVisibility = Visibility.Collapsed;
+            WalletVisibility = Visibility.Collapsed;
             HomeVisibility = Visibility.Visible;
         }
 
@@ -354,6 +375,7 @@ namespace E_Store.ViewModels
             Price= 0;
 
             MembersVisibility = Visibility.Visible;
+            WalletVisibility = Visibility.Collapsed;
             HomeVisibility = Visibility.Collapsed;
         }
 
@@ -415,6 +437,18 @@ namespace E_Store.ViewModels
             else validData = true;
 
             return validData;
+        }
+
+        #endregion
+
+        #region WalletCommand
+
+        private void ExecuteWalletCommand (object? obj)
+        {
+
+            MembersVisibility = Visibility.Collapsed;
+            WalletVisibility = Visibility.Visible;
+            HomeVisibility = Visibility.Collapsed;
         }
 
         #endregion

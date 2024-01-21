@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Mail;
+using System.Security.Policy;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Media3D;
@@ -113,7 +114,7 @@ internal class HomeViewModel : BaseViewModel
     private void ExecuteLoginCommand(object? parametr) => _navigationStore.CurrentViewModel = new LoginViewModel(_navigationStore, CurrentUser);
     private void ExecuteOurFruitCommand(object? parametr) => _navigationStore.CurrentViewModel = new OurFruitViewModel(_navigationStore, CurrentUser);
     private void ExecuteAboutCommand(object? parametr) => _navigationStore.CurrentViewModel = new AboutViewModel(_navigationStore, CurrentUser);
-    private void ExecuteNavigateCommand(object? parametr) => Process.Start("chrome.exe", "https://www.google.com/maps/place/STEP+Komp%C3%BCter+Akademiyas%C4%B1,+Baku/@40.4149839,49.8510875,17z/data=!3m1!4b1!4m5!3m4!1s0x403087fbef6b3dfb:0xc32b1d5765759234!8m2!3d40.4149839!4d49.8532762");
+    private void ExecuteNavigateCommand(object? parametr) => Process.Start("CMD.exe", $"/C start chrome https://www.google.com/maps/place/STEP+Komp%C3%BCter+Akademiyas%C4%B1,+Baku/@40.4149839,49.8510875,17z/data=!3m1!4b1!4m5!3m4!1s0x403087fbef6b3dfb:0xc32b1d5765759234!8m2!3d40.4149839!4d49.8532762");
     private void ExecuteSendMessageCommand(object? parametr)
     {
         try
